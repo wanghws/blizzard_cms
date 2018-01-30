@@ -12,7 +12,7 @@
 		<param-value>classpath*:/spring-context*.xml</param-value>
 	</context-param>
 	<listener>
-		<listener-class>com.demo.cms.modules.sys.listener.WebContextListener</listener-class>
+		<listener-class>com.blizzard.cms.modules.sys.listener.WebContextListener</listener-class>
 	</listener>
 	<listener>
         <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>  
@@ -107,7 +107,7 @@
 	<!-- Userfiles download -->
 	<servlet>
 	  	<servlet-name>UserfilesDownloadServlet</servlet-name>
-	  	<servlet-class>com.demo.cms.commons.servlet.UserfilesDownloadServlet</servlet-class>
+	  	<servlet-class>com.blizzard.cms.commons.servlet.UserfilesDownloadServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 	  	<servlet-name>UserfilesDownloadServlet</servlet-name>
@@ -117,7 +117,7 @@
 	<!-- Validate code -->
 	<servlet>
 		<servlet-name>ValidateCodeServlet</servlet-name>
-		<servlet-class>com.demo.cms.commons.servlet.ValidateCodeServlet</servlet-class>
+		<servlet-class>com.blizzard.cms.commons.servlet.ValidateCodeServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ValidateCodeServlet</servlet-name>

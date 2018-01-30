@@ -23,8 +23,8 @@ if (Servlets.isAjaxRequest(request)) {
 // 输出异常信息页面
 else {
 %>
-<%@page import="com.demo.cms.commons.utils.Exceptions,com.demo.cms.commons.utils.StringUtils"%>
-<%@page import="com.demo.cms.commons.web.Servlets"%>
+<%@page import="com.blizzard.cms.commons.utils.Exceptions,com.blizzard.cms.commons.utils.StringUtils"%>
+<%@page import="com.blizzard.cms.commons.web.Servlets"%>
 <%@page import="org.slf4j.LoggerFactory"%>
 <%@page contentType="text/html;charset=UTF-8" isErrorPage="true"%>
 <%@include file="/WEB-INF/views/include/taglib.jsp"%>

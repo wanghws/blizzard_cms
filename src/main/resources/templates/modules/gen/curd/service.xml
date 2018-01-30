@@ -14,8 +14,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.demo.cms.commons.utils.Page;
-import com.demo.cms.commons.service.FrameworkService;
+import com.blizzard.cms.commons.utils.Page;
+import com.blizzard.cms.commons.service.FrameworkService;
 import ${packageName}.${moduleName}.entity<#if subModuleName != "">.${subModuleName}</#if>.${ClassName};
 import ${packageName}.${moduleName}.dao<#if subModuleName != "">.${subModuleName}</#if>.${ClassName}Dao;
 

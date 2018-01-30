@@ -13,7 +13,7 @@ package ${packageName}.${moduleName}.entity<#if subModuleName != "">.${subModule
 import ${i};
 </#list>
 
-import com.demo.cms.commons.entity.FrameworkEntity;
+import com.blizzard.cms.commons.entity.FrameworkEntity;
 
 /**
  * ${functionName}Entity

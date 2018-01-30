@@ -13,7 +13,7 @@ package ${packageName}.${moduleName}.entity<#if subModuleName != "">.${subModule
 import ${i};
 </#list>
 
-import com.demo.cms.commons.persistence.TreeEntity;
+import com.blizzard.cms.commons.persistence.TreeEntity;
 
 /**
  * ${functionName}Entity

@@ -14,8 +14,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.demo.cms.commons.service.TreeService;
-import com.demo.cms.commons.utils.StringUtils;
+import com.blizzard.cms.commons.service.TreeService;
+import com.blizzard.cms.commons.utils.StringUtils;
 import ${packageName}.${moduleName}.entity<#if subModuleName != "">.${subModuleName}</#if>.${ClassName};
 import ${packageName}.${moduleName}.dao<#if subModuleName != "">.${subModuleName}</#if>.${ClassName}Dao;
 

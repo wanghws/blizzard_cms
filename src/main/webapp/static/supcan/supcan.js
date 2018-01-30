@@ -1,8 +1,8 @@
 /*!
- * Copyright &copy; 2017 siyongbao.com All rights reserved.
+ * Copyright &copy; 2017 blizzard-cms.com All rights reserved.
  * 
  * 硕正组件封装
- * @author siyongbao.com
+ * @author blizzard-cms.com
  * @version 2013-11-09
  */
 

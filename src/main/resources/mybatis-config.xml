@@ -37,11 +37,11 @@
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	<typeAliases>
-		<typeAlias alias="Page" type="com.demo.cms.commons.utils.Page" /><!--分页  -->
+		<typeAlias alias="Page" type="com.blizzard.cms.commons.utils.Page" /><!--分页  -->
 	</typeAliases>
 
 	<plugins>
-		<plugin interceptor="com.demo.cms.commons.interceptor.PaginationInterceptor" />
+		<plugin interceptor="com.blizzard.cms.commons.interceptor.PaginationInterceptor" />
     </plugins>
 	
 </configuration>

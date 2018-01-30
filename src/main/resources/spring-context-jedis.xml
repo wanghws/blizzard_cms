@@ -34,7 +34,7 @@
 		</constructor-arg>
 	</bean>
 
-	<bean id="redis" class="com.demo.cms.commons.redis.Redis">
+	<bean id="redis" class="com.blizzard.cms.commons.redis.Redis">
 		<constructor-arg ref="shardedJedisPool"/>
 	</bean>
 	

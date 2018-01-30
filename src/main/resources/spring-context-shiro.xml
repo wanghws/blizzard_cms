@@ -50,7 +50,7 @@
 	</bean>
 	
 	<!-- 自定义会话管理配置 -->
-	<bean id="sessionManager" class="com.demo.cms.commons.security.shiro.session.SessionManager">
+	<bean id="sessionManager" class="com.blizzard.cms.commons.security.shiro.session.SessionManager">
 		<property name="sessionDAO" ref="sessionDAO"/>
 		
 		<!-- 会话超时时间，单位：毫秒  -->
@@ -71,16 +71,16 @@
 	    <constructor-arg name="name" value="demo.cms.session.id"/>
 	</bean>
 
-	<bean id="idGen" class="com.demo.cms.commons.idgen.IdGen"/>
+	<bean id="idGen" class="com.blizzard.cms.commons.idgen.IdGen"/>
 
-	<bean id="sessionDAO" class="com.demo.cms.commons.security.shiro.session.CacheSessionDAO">
+	<bean id="sessionDAO" class="com.blizzard.cms.commons.security.shiro.session.CacheSessionDAO">
 		<property name="sessionIdGenerator" ref="idGen" />
 		<property name="activeSessionsCacheName" value="activeSessionsCache" />
 		<property name="cacheManager" ref="shiroCacheManager" />
 	</bean>
 	
 	<!-- 自定义系统缓存管理器-->
-<!-- 	<bean id="shiroCacheManager" class="com.demo.cms.commons.security.shiro.cache.JedisCacheManager"> -->
+<!-- 	<bean id="shiroCacheManager" class="com.blizzard.cms.commons.security.shiro.cache.JedisCacheManager"> -->
 <!-- 		<property name="cacheKeyPrefix" value="${redis.keyPrefix}_cache_" /> -->
 <!-- 	</bean> -->
 	<bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">

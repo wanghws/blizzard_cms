@@ -14,15 +14,15 @@
   <function>
     <description>获取通用状态列表</description>
     <name>commonsStatusList</name>
-    <function-class>com.demo.cms.commons.status.Status</function-class>
-    <function-signature>com.demo.cms.commons.status.Status[] all()</function-signature>
+    <function-class>com.blizzard.cms.commons.status.Status</function-class>
+    <function-signature>com.blizzard.cms.commons.status.Status[] all()</function-signature>
     <example>${erp:commonsStatusList}</example>
   </function>
 
   <function>
     <description>显示通用状态名称</description>
     <name>commonsStatusName</name>
-    <function-class>com.demo.cms.commons.status.Status</function-class>
+    <function-class>com.blizzard.cms.commons.status.Status</function-class>
     <function-signature>java.lang.String findName(java.lang.Integer)</function-signature>
     <example>${erp:commonsStatusName(status)}</example>
   </function>
