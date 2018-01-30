@@ -29,8 +29,8 @@ CREATE TABLE `cms_channel` (
   KEY `parent_id` (`parent_id`),
   KEY `domain_id` (`domain_id`),
   KEY `template_id` (`template_id`),
-  KEY `page` (`page`),
-  KEY `display` (`display`),
+  KEY `page_status` (`page_status`),
+  KEY `display_status` (`display_status`),
   KEY `status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='频道表';
 

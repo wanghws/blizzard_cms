@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blizzard.cms.modules.cms.dao.TemplateDao">
+    
+	<sql id="templateColumns">
+		a.id AS "id",
+		a.domain_id AS "domainId",
+		a.title AS "title",
+		a.content AS "content",
+		a.file_name AS "fileName",
+		a.status AS "status",
+		a.update_time AS "updateTime",
+		a.update_user AS "updateUser",
+		a.create_time AS "createTime",
+		a.create_user AS "createUser"
+	</sql>
+	
+	<sql id="templateJoins">
+	</sql>
+    
+	<select id="get" resultType="Template">
+		SELECT 
+			<include refid="templateColumns"/>
+		FROM cms_template a
+		<include refid="templateJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Template">
+		SELECT 
+			<include refid="templateColumns"/>
+		FROM cms_template a
+		<include refid="templateJoins"/>
+		<where>
+			
+			<if test="title != null and title != ''">
+				AND a.title LIKE
+					concat('%',#{title},'%')
+			</if>
+			<if test="fileName != null and fileName != ''">
+				AND a.file_name = #{fileName}
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				AND a.update_time = #{updateTime}
+			</if>
+			<if test="updateUser != null and updateUser != ''">
+				AND a.update_user = #{updateUser}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				AND a.create_time = #{createTime}
+			</if>
+			<if test="createUser != null and createUser != ''">
+				AND a.create_user = #{createUser}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Template">
+		SELECT 
+			<include refid="templateColumns"/>
+		FROM cms_template a
+		<include refid="templateJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO cms_template(
+			id,
+			domain_id,
+			title,
+			content,
+			file_name,
+			status,
+			update_time,
+			update_user,
+			create_time,
+			create_user
+		) VALUES (
+			#{id},
+			#{domainId},
+			#{title},
+			#{content},
+			#{fileName},
+			#{status},
+			#{updateTime},
+			#{updateUser},
+			#{createTime},
+			#{createUser}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE cms_template SET
+			domain_id = #{domainId},
+			title = #{title},
+			content = #{content},
+			file_name = #{fileName},
+			status = #{status},
+			update_time = #{updateTime},
+			update_user = #{updateUser},
+			create_time = #{createTime},
+			create_user = #{createUser}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE cms_template SET status = #{status}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blizzard.cms.modules.cms.dao.ChannelDao">
+    
+	<sql id="channelColumns">
+		a.id AS "id",
+		a.parent_id AS "parentId",
+		a.domain_id AS "domainId",
+		a.template_id AS "templateId",
+		a.path AS "path",
+		a.name AS "name",
+		a.html_name AS "htmlName",
+		a.display_status AS "displayStatus",
+		a.page_status AS "pageStatus",
+		a.status AS "status",
+		a.create_user AS "createUser",
+		a.create_time AS "createTime"
+	</sql>
+	
+	<sql id="channelJoins">
+	</sql>
+    
+	<select id="get" resultType="Channel">
+		SELECT 
+			<include refid="channelColumns"/>
+		FROM cms_channel a
+		<include refid="channelJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Channel">
+		SELECT 
+			<include refid="channelColumns"/>
+		FROM cms_channel a
+		<include refid="channelJoins"/>
+		<where>
+			
+			<if test="parentId != null and parentId != ''">
+				AND a.parent_id = #{parentId}
+			</if>
+			<if test="domainId != null and domainId != ''">
+				AND a.domain_id = #{domainId}
+			</if>
+			<if test="templateId != null and templateId != ''">
+				AND a.template_id = #{templateId}
+			</if>
+			<if test="path != null and path != ''">
+				AND a.path = #{path}
+			</if>
+			<if test="name != null and name != ''">
+				AND a.name LIKE
+					concat('%',#{name},'%')
+			</if>
+			<if test="htmlName != null and htmlName != ''">
+				AND a.html_name = #{htmlName}
+			</if>
+			<if test="displayStatus != null and displayStatus != ''">
+				AND a.display_status = #{displayStatus}
+			</if>
+			<if test="pageStatus != null and pageStatus != ''">
+				AND a.page_status = #{pageStatus}
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+			<if test="createUser != null and createUser != ''">
+				AND a.create_user = #{createUser}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				AND a.create_time = #{createTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Channel">
+		SELECT 
+			<include refid="channelColumns"/>
+		FROM cms_channel a
+		<include refid="channelJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO cms_channel(
+			id,
+			parent_id,
+			domain_id,
+			template_id,
+			path,
+			name,
+			html_name,
+			display_status,
+			page_status,
+			status,
+			create_user,
+			create_time
+		) VALUES (
+			#{id},
+			#{parentId},
+			#{domainId},
+			#{templateId},
+			#{path},
+			#{name},
+			#{htmlName},
+			#{displayStatus},
+			#{pageStatus},
+			#{status},
+			#{createUser},
+			#{createTime}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE cms_channel SET
+			parent_id = #{parentId},
+			domain_id = #{domainId},
+			template_id = #{templateId},
+			path = #{path},
+			name = #{name},
+			html_name = #{htmlName},
+			display_status = #{displayStatus},
+			page_status = #{pageStatus},
+			status = #{status},
+			create_user = #{createUser},
+			create_time = #{createTime}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE cms_channel SET status = #{status}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

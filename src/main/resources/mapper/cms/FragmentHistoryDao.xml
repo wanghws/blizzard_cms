@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blizzard.cms.modules.cms.dao.FragmentHistoryDao">
+    
+	<sql id="fragmentHistoryColumns">
+		a.id AS "id",
+		a.fragment_id AS "fragmentId",
+		a.content AS "content",
+		a.status AS "status",
+		a.create_time AS "createTime",
+		a.create_user AS "createUser"
+	</sql>
+	
+	<sql id="fragmentHistoryJoins">
+	</sql>
+    
+	<select id="get" resultType="FragmentHistory">
+		SELECT 
+			<include refid="fragmentHistoryColumns"/>
+		FROM cms_fragment_history a
+		<include refid="fragmentHistoryJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="FragmentHistory">
+		SELECT 
+			<include refid="fragmentHistoryColumns"/>
+		FROM cms_fragment_history a
+		<include refid="fragmentHistoryJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="FragmentHistory">
+		SELECT 
+			<include refid="fragmentHistoryColumns"/>
+		FROM cms_fragment_history a
+		<include refid="fragmentHistoryJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO cms_fragment_history(
+			id,
+			fragment_id,
+			content,
+			status,
+			create_time,
+			create_user
+		) VALUES (
+			#{id},
+			#{fragmentId},
+			#{content},
+			#{status},
+			#{createTime},
+			#{createUser}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE cms_fragment_history SET
+			fragment_id = #{fragmentId},
+			content = #{content},
+			status = #{status},
+			create_time = #{createTime},
+			create_user = #{createUser}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE cms_fragment_history SET status = #{status}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

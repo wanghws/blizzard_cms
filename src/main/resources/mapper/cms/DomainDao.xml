@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blizzard.cms.modules.cms.dao.DomainDao">
+    
+	<sql id="domainColumns">
+		a.id AS "id",
+		a.path AS "path",
+		a.domain AS "domain",
+		a.status AS "status",
+		a.create_user AS "createUser",
+		a.create_time AS "createTime"
+	</sql>
+	
+	<sql id="domainJoins">
+	</sql>
+    
+	<select id="get" resultType="Domain">
+		SELECT 
+			<include refid="domainColumns"/>
+		FROM cms_domain a
+		<include refid="domainJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Domain">
+		SELECT 
+			<include refid="domainColumns"/>
+		FROM cms_domain a
+		<include refid="domainJoins"/>
+		<where>
+			
+			<if test="path != null and path != ''">
+				AND a.path LIKE
+					concat('%',#{path},'%')
+			</if>
+			<if test="domain != null and domain != ''">
+				AND a.domain LIKE
+					concat('%',#{domain},'%')
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+			<if test="createUser != null and createUser != ''">
+				AND a.create_user = #{createUser}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				AND a.create_time = #{createTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Domain">
+		SELECT 
+			<include refid="domainColumns"/>
+		FROM cms_domain a
+		<include refid="domainJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO cms_domain(
+			id,
+			path,
+			domain,
+			status,
+			create_user,
+			create_time
+		) VALUES (
+			#{id},
+			#{path},
+			#{domain},
+			#{status},
+			#{createUser},
+			#{createTime}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE cms_domain SET
+			path = #{path},
+			domain = #{domain},
+			status = #{status},
+			create_user = #{createUser},
+			create_time = #{createTime}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE cms_domain SET status = #{status}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blizzard.cms.modules.cms.dao.SchedulerDao">
+    
+	<sql id="schedulerColumns">
+		a.id AS "id",
+		a.name AS "name",
+		a.title AS "title",
+		a.expression AS "expression",
+		a.status AS "status",
+		a.update_time AS "updateTime",
+		a.update_user AS "updateUser",
+		a.create_time AS "createTime",
+		a.create_user AS "createUser"
+	</sql>
+	
+	<sql id="schedulerJoins">
+	</sql>
+    
+	<select id="get" resultType="Scheduler">
+		SELECT 
+			<include refid="schedulerColumns"/>
+		FROM cms_scheduler a
+		<include refid="schedulerJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Scheduler">
+		SELECT 
+			<include refid="schedulerColumns"/>
+		FROM cms_scheduler a
+		<include refid="schedulerJoins"/>
+		<where>
+			
+			<if test="name != null and name != ''">
+				AND a.name LIKE
+					concat('%',#{name},'%')
+			</if>
+			<if test="title != null and title != ''">
+				AND a.title LIKE
+					concat('%',#{title},'%')
+			</if>
+			<if test="expression != null and expression != ''">
+				AND a.expression = #{expression}
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				AND a.update_time = #{updateTime}
+			</if>
+			<if test="updateUser != null and updateUser != ''">
+				AND a.update_user = #{updateUser}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				AND a.create_time = #{createTime}
+			</if>
+			<if test="createUser != null and createUser != ''">
+				AND a.create_user = #{createUser}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Scheduler">
+		SELECT 
+			<include refid="schedulerColumns"/>
+		FROM cms_scheduler a
+		<include refid="schedulerJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO cms_scheduler(
+			id,
+			name,
+			title,
+			expression,
+			status,
+			update_time,
+			update_user,
+			create_time,
+			create_user
+		) VALUES (
+			#{id},
+			#{name},
+			#{title},
+			#{expression},
+			#{status},
+			#{updateTime},
+			#{updateUser},
+			#{createTime},
+			#{createUser}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE cms_scheduler SET
+			name = #{name},
+			title = #{title},
+			expression = #{expression},
+			status = #{status},
+			update_time = #{updateTime},
+			update_user = #{updateUser},
+			create_time = #{createTime},
+			create_user = #{createUser}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE cms_scheduler SET status = #{status}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blizzard.cms.modules.cms.dao.TemplateHistoryDao">
+    
+	<sql id="templateHistoryColumns">
+		a.id AS "id",
+		a.template_id AS "templateId",
+		a.content AS "content",
+		a.status AS "status",
+		a.create_time AS "createTime",
+		a.create_user AS "createUser"
+	</sql>
+	
+	<sql id="templateHistoryJoins">
+	</sql>
+    
+	<select id="get" resultType="TemplateHistory">
+		SELECT 
+			<include refid="templateHistoryColumns"/>
+		FROM cms_template_history a
+		<include refid="templateHistoryJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TemplateHistory">
+		SELECT 
+			<include refid="templateHistoryColumns"/>
+		FROM cms_template_history a
+		<include refid="templateHistoryJoins"/>
+		<where>
+			
+			<if test="templateId != null and templateId != ''">
+				AND a.template_id = #{templateId}
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				AND a.create_time = #{createTime}
+			</if>
+			<if test="createUser != null and createUser != ''">
+				AND a.create_user = #{createUser}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TemplateHistory">
+		SELECT 
+			<include refid="templateHistoryColumns"/>
+		FROM cms_template_history a
+		<include refid="templateHistoryJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO cms_template_history(
+			id,
+			template_id,
+			content,
+			status,
+			create_time,
+			create_user
+		) VALUES (
+			#{id},
+			#{templateId},
+			#{content},
+			#{status},
+			#{createTime},
+			#{createUser}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE cms_template_history SET
+			template_id = #{templateId},
+			content = #{content},
+			status = #{status},
+			create_time = #{createTime},
+			create_user = #{createUser}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE cms_template_history SET status = #{status}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

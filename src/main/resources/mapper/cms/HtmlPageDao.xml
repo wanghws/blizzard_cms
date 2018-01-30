@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blizzard.cms.modules.cms.dao.HtmlPageDao">
+    
+	<sql id="htmlPageColumns">
+		a.id AS "id",
+		a.parent_id AS "parentId",
+		a.category_id AS "categoryId",
+		a.template_id AS "templateId",
+		a.channel_id AS "channelId",
+		a.name AS "name",
+		a.title AS "title",
+		a.key_word AS "keyWord",
+		a.description AS "description",
+		a.content AS "content",
+		a.html_name AS "htmlName",
+		a.show_url AS "showUrl",
+		a.json_type AS "jsonType",
+		a.status AS "status",
+		a.create_time AS "createTime",
+		a.create_user AS "createUser"
+	</sql>
+	
+	<sql id="htmlPageJoins">
+	</sql>
+    
+	<select id="get" resultType="HtmlPage">
+		SELECT 
+			<include refid="htmlPageColumns"/>
+		FROM cms_page a
+		<include refid="htmlPageJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="HtmlPage">
+		SELECT 
+			<include refid="htmlPageColumns"/>
+		FROM cms_page a
+		<include refid="htmlPageJoins"/>
+		<where>
+			
+			<if test="parentId != null and parentId != ''">
+				AND a.parent_id = #{parentId}
+			</if>
+			<if test="categoryId != null and categoryId != ''">
+				AND a.category_id = #{categoryId}
+			</if>
+			<if test="templateId != null and templateId != ''">
+				AND a.template_id = #{templateId}
+			</if>
+			<if test="channelId != null and channelId != ''">
+				AND a.channel_id = #{channelId}
+			</if>
+			<if test="name != null and name != ''">
+				AND a.name LIKE
+					concat('%',#{name},'%')
+			</if>
+			<if test="title != null and title != ''">
+				AND a.title LIKE
+					concat('%',#{title},'%')
+			</if>
+			<if test="keyWord != null and keyWord != ''">
+				AND a.key_word = #{keyWord}
+			</if>
+			<if test="description != null and description != ''">
+				AND a.description = #{description}
+			</if>
+			<if test="content != null and content != ''">
+				AND a.content = #{content}
+			</if>
+			<if test="htmlName != null and htmlName != ''">
+				AND a.html_name = #{htmlName}
+			</if>
+			<if test="showUrl != null and showUrl != ''">
+				AND a.show_url = #{showUrl}
+			</if>
+			<if test="jsonType != null and jsonType != ''">
+				AND a.json_type = #{jsonType}
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				AND a.create_time = #{createTime}
+			</if>
+			<if test="createUser != null and createUser != ''">
+				AND a.create_user = #{createUser}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="HtmlPage">
+		SELECT 
+			<include refid="htmlPageColumns"/>
+		FROM cms_page a
+		<include refid="htmlPageJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO cms_page(
+			id,
+			parent_id,
+			category_id,
+			template_id,
+			channel_id,
+			name,
+			title,
+			key_word,
+			description,
+			content,
+			html_name,
+			show_url,
+			json_type,
+			status,
+			create_time,
+			create_user
+		) VALUES (
+			#{id},
+			#{parentId},
+			#{categoryId},
+			#{templateId},
+			#{channelId},
+			#{name},
+			#{title},
+			#{keyWord},
+			#{description},
+			#{content},
+			#{htmlName},
+			#{showUrl},
+			#{jsonType},
+			#{status},
+			#{createTime},
+			#{createUser}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE cms_page SET
+			parent_id = #{parentId},
+			category_id = #{categoryId},
+			template_id = #{templateId},
+			channel_id = #{channelId},
+			name = #{name},
+			title = #{title},
+			key_word = #{keyWord},
+			description = #{description},
+			content = #{content},
+			html_name = #{htmlName},
+			show_url = #{showUrl},
+			json_type = #{jsonType},
+			status = #{status},
+			create_time = #{createTime},
+			create_user = #{createUser}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE cms_page SET status = #{status}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

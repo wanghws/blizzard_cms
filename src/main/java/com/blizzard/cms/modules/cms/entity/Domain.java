@@ -1,34 +1,40 @@
+/**
+ * Copyright &copy; 2017 demo.com All rights reserved.
+ */
 package com.blizzard.cms.modules.cms.entity;
 
-import java.io.Serializable;
-import java.util.List;
+import org.hibernate.validator.constraints.Length;
+import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import com.blizzard.cms.commons.entity.FrameworkEntity;
 
+/**
+ * 域名管理Entity
+ * @author https://github.com/wanghws
+ * @version 2018-01-30
+ */
+public class Domain extends FrameworkEntity<Domain> {
 
-public class Domain extends FrameworkEntity<Domain>{
+	private String path;		// 路径
+	private String domain;		// 域名
 
-	private String path;	//路径
-	private String domain;	//域名
+	@Length(min=0, max=128, message="路径长度必须介于 0 和 128 之间")
+	public String getPath() {
+		return path;
+	}
 
-	private List<Channel> channelList;
+	public void setPath(String path) {
+		this.path = path;
+	}
 	
-	public List<Channel> getChannelList() {
-		return channelList;
-	}
-	public void setChannelList(List<Channel> channelList) {
-		this.channelList = channelList;
-	}
+	@Length(min=0, max=256, message="域名长度必须介于 0 和 256 之间")
 	public String getDomain() {
 		return domain;
 	}
+
 	public void setDomain(String domain) {
 		this.domain = domain;
 	}
-	public void setPath(String path){
-		this.path = path;
-	}
-	public String getPath(){
-		return this.path;
-	}
-		
+
 }

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blizzard.cms.modules.cms.dao.TaskDao">
+    
+	<sql id="taskColumns">
+		a.id AS "id",
+		a.scheduler_id AS "schedulerId",
+		a.page_id AS "pageId",
+		a.type AS "type",
+		a.scheduler_type AS "schedulerType",
+		a.callback_url AS "callbackUrl",
+		a.status AS "status",
+		a.update_time AS "updateTime",
+		a.update_user AS "updateUser",
+		a.create_time AS "createTime",
+		a.create_user AS "createUser"
+	</sql>
+	
+	<sql id="taskJoins">
+	</sql>
+    
+	<select id="get" resultType="Task">
+		SELECT 
+			<include refid="taskColumns"/>
+		FROM cms_task a
+		<include refid="taskJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Task">
+		SELECT 
+			<include refid="taskColumns"/>
+		FROM cms_task a
+		<include refid="taskJoins"/>
+		<where>
+			
+			<if test="schedulerId != null and schedulerId != ''">
+				AND a.scheduler_id = #{schedulerId}
+			</if>
+			<if test="pageId != null and pageId != ''">
+				AND a.page_id = #{pageId}
+			</if>
+			<if test="type != null and type != ''">
+				AND a.type = #{type}
+			</if>
+			<if test="schedulerType != null and schedulerType != ''">
+				AND a.scheduler_type = #{schedulerType}
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				AND a.update_time = #{updateTime}
+			</if>
+			<if test="updateUser != null and updateUser != ''">
+				AND a.update_user = #{updateUser}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				AND a.create_time = #{createTime}
+			</if>
+			<if test="createUser != null and createUser != ''">
+				AND a.create_user = #{createUser}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Task">
+		SELECT 
+			<include refid="taskColumns"/>
+		FROM cms_task a
+		<include refid="taskJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO cms_task(
+			id,
+			scheduler_id,
+			page_id,
+			type,
+			scheduler_type,
+			callback_url,
+			status,
+			update_time,
+			update_user,
+			create_time,
+			create_user
+		) VALUES (
+			#{id},
+			#{schedulerId},
+			#{pageId},
+			#{type},
+			#{schedulerType},
+			#{callbackUrl},
+			#{status},
+			#{updateTime},
+			#{updateUser},
+			#{createTime},
+			#{createUser}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE cms_task SET
+			scheduler_id = #{schedulerId},
+			page_id = #{pageId},
+			type = #{type},
+			scheduler_type = #{schedulerType},
+			callback_url = #{callbackUrl},
+			status = #{status},
+			update_time = #{updateTime},
+			update_user = #{updateUser},
+			create_time = #{createTime},
+			create_user = #{createUser}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE cms_task SET status = #{status}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
