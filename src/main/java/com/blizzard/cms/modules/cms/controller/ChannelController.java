@@ -6,6 +6,7 @@ package com.blizzard.cms.modules.cms.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.blizzard.cms.commons.utils.Page;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.blizzard.cms.commons.config.Global;
-import com.blizzard.cms.commons.persistence.Page;
 import com.blizzard.cms.commons.web.BaseController;
 import com.blizzard.cms.commons.utils.StringUtils;
 import com.blizzard.cms.modules.cms.entity.Channel;
@@ -49,7 +49,7 @@ public class ChannelController extends BaseController {
 	@RequiresPermissions("channel:list")
 	@RequestMapping(value = "list")
 	public String list(Channel channel, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<Channel> page = channelService.findPage(new Page<Channel>(request, response), channel); 
+		Page<Channel> page = channelService.findPage(new Page<Channel>(request, response), channel);
 		model.addAttribute("page", page);
 		return "modules/cms/channelList";
 	}

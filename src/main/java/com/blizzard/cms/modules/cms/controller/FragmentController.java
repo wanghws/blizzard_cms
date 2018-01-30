@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.blizzard.cms.commons.config.Global;
-import com.blizzard.cms.commons.persistence.Page;
+import com.blizzard.cms.commons.utils.Page;
 import com.blizzard.cms.commons.web.BaseController;
 import com.blizzard.cms.commons.utils.StringUtils;
 import com.blizzard.cms.modules.cms.entity.Fragment;
